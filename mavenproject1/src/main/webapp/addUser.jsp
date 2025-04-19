@@ -6,107 +6,124 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New User</title>
     <style>
-        /* Page Styling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9; /* Light gray background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #ffffff);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Container */
+        .header, .footer {
+            background-color: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
         .container {
-            width: 40%;
-            background: white;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            margin-top: 40px;
+            background: #ffffff;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         h2 {
+            text-align: center;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* Form Styling */
         form {
-            text-align: left;
+            display: flex;
+            flex-direction: column;
         }
 
         label {
             font-weight: bold;
-            display: block;
             margin: 10px 0 5px;
         }
 
         input {
-            width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 15px;
         }
 
-        /* Button Styling */
         .btn {
-            background: #28a745;
-            color: white;
             padding: 12px;
+            font-size: 16px;
+            background-color: #28a745;
             border: none;
+            color: white;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
+            margin-top: 10px;
         }
 
         .btn:hover {
-            background: #218838;
+            background-color: #218838;
         }
 
         .btn-secondary {
-            background: #007bff;
+            background-color: #007bff;
+            text-align: center;
             text-decoration: none;
             display: inline-block;
-            text-align: center;
         }
 
         .btn-secondary:hover {
-            background: #0056b3;
+            background-color: #0056b3;
         }
 
-        /* Error Message Styling */
         .error {
             color: red;
             margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .footer {
+            margin-top: auto;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Add New User</h2>
 
-        <% if (request.getParameter("error") != null) { %>
-            <p class="error">Error: <%= request.getParameter("error") %></p>
-        <% } %>
+<div class="header">
+    <h1>Balance Query System</h1>
+</div>
 
-        <!-- Form to Add User -->
-        <form action="addUser" method="POST">
-            <label for="msisdn">Phone:</label>
-            <input type="text" id="msisdn" name="msisdn" required>
+<div class="container">
+    <h2>Add New User</h2>
 
-            <label for="balance">Balance:</label>
-            <input type="number" id="balance" name="balance" step="0.01" required>
+    <% if (request.getParameter("error") != null) { %>
+        <p class="error">❌ Error: <%= request.getParameter("error") %></p>
+    <% } %>
 
-            <button type="submit" class="btn">Add User</button>
-        </form>
+    <form action="addUser" method="POST">
+        <label for="msisdn">Phone:</label>
+        <input placeholder="please enter only number" type="number" id="msisdn" name="msisdn" required pattern="\d+" inputmode="numeric">
 
-        <br>
-        <a href="adminpage.jsp" class="btn btn-secondary">Back to Dashboard</a>
-    </div>
+
+        <label for="balance">Balance:</label>
+        <input type="number" id="balance" name="balance" step="0.01" required>
+
+        <button type="submit" class="btn">Add User</button>
+    </form>
+
+    <a href="adminpage.jsp" class="btn btn-secondary" style="margin-top: 15px;">Back to Dashboard</a>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Balance Query System - All Rights Reserved</p>
+</div>
+
 </body>
 </html>

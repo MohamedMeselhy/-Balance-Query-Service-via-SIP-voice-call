@@ -1,34 +1,45 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Update User Balance</title>
     <style>
+        /* Reset and Global Styles */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header, .footer {
+            background-color: #1a202c;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
         .container {
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .header {
-            background-color: #1a202c;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            margin-bottom: 20px;
+            flex: 1;
+            max-width: 500px;
+            background-color: white;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
         }
 
         h2 {
             text-align: center;
+            margin-bottom: 25px;
             color: #2d3748;
         }
 
@@ -41,54 +52,51 @@
 
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 12px;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
             font-size: 16px;
         }
 
         .btn {
-            padding: 10px 15px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             font-size: 16px;
             width: 100%;
-            text-align: center;
-            display: inline-block;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: 0.3s ease;
         }
 
         .btn-update {
-            background-color: #48bb78;
+            background-color: #28a745;
             color: white;
         }
 
         .btn-update:hover {
-            background-color: #38a169;
+            background-color: #218838;
         }
 
         .btn-back {
-            background-color: #4299e1;
+            background-color: #007bff;
             color: white;
-            margin-top: 10px;
+            text-decoration: none;
             display: block;
             text-align: center;
-            text-decoration: none;
-            padding: 10px;
-            border-radius: 5px;
+            margin-top: 15px;
+            padding: 12px;
         }
 
         .btn-back:hover {
-            background-color: #3182ce;
+            background-color: #0056b3;
         }
 
         .alert {
             padding: 15px;
             margin-bottom: 20px;
-            border-radius: 5px;
+            border-radius: 6px;
             font-weight: bold;
         }
 
@@ -104,38 +112,51 @@
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Update User Balance</h1>
-    </div>
 
-    <%-- Display Success or Error Messages --%>
-    <%
-        String successMessage = request.getParameter("success");
-        String errorMessage = request.getParameter("error");
-        if (successMessage != null) {
-    %>
-        <div class="alert success">✅ <%= successMessage %></div>
-    <% 
-        } else if (errorMessage != null) { 
-    %>
-        <div class="alert error">❌ <%= errorMessage %></div>
-    <% } %>
+<div class="header">
+    <h1>Update User Balance</h1>
+</div>
 
-    <div class="container">
-        <h2>Enter Details</h2>
+<%
+    String successMessage = request.getParameter("success");
+    String errorMessage = request.getParameter("error");
+    if (successMessage != null) {
+%>
+    <div class="alert success">✅ <%= successMessage %></div>
+<%
+    } else if (errorMessage != null) {
+%>
+    <div class="alert error">❌ <%= errorMessage %></div>
+<% } %>
 
-        <!-- Form to update the balance -->
-        <form action="update_balance" method="post">
-            <label for="msisdn">MSISDN (Phone Number):</label>
-            <input type="text" id="msisdn" name="msisdn" required>
+<div class="container">
+    <h2>Enter Details</h2>
 
-            <label for="balance">New Balance:</label>
-            <input type="text" id="balance" name="balance" required>
+    <form action="update_balance" method="post">
+        <label for="msisdn">MSISDN (Phone Number):</label>
+<input
+    type="text"
+    id="msisdn"
+    name="msisdn"
+    required
+    pattern="\d+"
+    inputmode="numeric"
+    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+    placeholder="Enter numbers only"
+    />
 
-            <button type="submit" class="btn btn-update">Update Balance</button>
-        </form>
+        <label for="balance">New Balance:</label>
+        <input type="text" id="balance" name="balance" required pattern="^\d+(\.\d{1,2})?$" inputmode="decimal">
 
-        <a href="adminpage.jsp" class="btn-back">Back to Dashboard</a>
-    </div>
+        <button type="submit" class="btn btn-update">💾 Update Balance</button>
+    </form>
+
+    <a href="adminpage.jsp" class="btn-back">⬅️ Back to Dashboard</a>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Balance Management System | All Rights Reserved</p>
+</div>
+
 </body>
 </html>

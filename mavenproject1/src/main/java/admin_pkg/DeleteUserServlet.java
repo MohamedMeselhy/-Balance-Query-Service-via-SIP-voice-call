@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DeleteUserServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/balance_db";
     private static final String DB_USER = "postgres";
-    private static final String DB_PASSWORD = "noor";
+    private static final String DB_PASSWORD = "1234";
 
     // Handle POST request for deleting a user
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

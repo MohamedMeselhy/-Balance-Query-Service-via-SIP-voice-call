@@ -3,101 +3,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User</title>
     <style>
-        /* Page Styling */
+        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9; /* Light Gray Background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: linear-gradient(to right, #74ebd5, #acb6e5); /* soft blue gradient */
             margin: 0;
+            padding: 0;
         }
 
-        /* Container */
+        .header, .footer {
+            background-color: #1a202c;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
         .container {
-            width: 40%;
-            background: white;
+            max-width: 450px;
+            margin: 40px auto;
+            background-color: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
+            text-align: center;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        /* Form Styling */
         form {
-            text-align: left;
+            display: flex;
+            flex-direction: column;
         }
 
         label {
+            margin-bottom: 8px;
             font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
         }
 
-        input {
-            width: 100%;
+        input[type="text"],
+        input[type="number"] {
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
             border-radius: 5px;
+            border: 1px solid #ccc;
             font-size: 16px;
         }
 
-        /* Button Styling */
         .btn {
-            background: #007bff;
-            color: white;
             padding: 12px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 16px;
-            width: 100%;
+            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            margin-top: 10px;
         }
 
         .btn:hover {
-            background: #0056b3;
+            background-color: #218838;
         }
 
         .btn-secondary {
-            background: #6c757d;
+            background-color: #007bff;
             text-decoration: none;
             display: inline-block;
             text-align: center;
+            margin-top: 10px;
         }
 
         .btn-secondary:hover {
-            background: #5a6268;
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Edit User</h2>
-        <form action="updateUser" method="POST">
-            <input type="hidden" name="userId" value="<%= request.getAttribute("userId") %>">
 
-            <label>MSISDN:</label>
-            <input type="text" name="msisdn" value="<%= request.getAttribute("msisdn") %>" required>
+<div class="header">
+    <h1>Edit User Details</h1>
+</div>
 
-            <label>Balance:</label>
-            <input type="number" step="0.01" name="balance" value="<%= request.getAttribute("balance") %>" required>
+<div class="container">
+    <form action="updateUser" method="POST">
+        <input type="hidden" name="userId" value="<%= request.getAttribute("userId") %>">
 
-            <br>
-            <button type="submit" class="btn">Update User</button>
-        </form>
-        
-        <br>
-        <a href="adminpage.jsp" class="btn btn-secondary">Back to Dashboard</a>
-    </div>
+        <label for="msisdn">MSISDN (Phone):</label>
+        <input type="text" id="msisdn" name="msisdn" value="<%= request.getAttribute("msisdn") %>" required pattern="\d+" inputmode="numeric">
+
+        <label for="balance">Balance:</label>
+        <input type="number" step="0.01" id="balance" name="balance" value="<%= request.getAttribute("balance") %>" required>
+
+        <button type="submit" class="btn">✅ Update User</button>
+        <a href="adminpage.jsp" class="btn btn-secondary">⬅️ Back to Dashboard</a>
+    </form>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 User Balance Management System</p>
+</div>
+
 </body>
 </html>
